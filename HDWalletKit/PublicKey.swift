@@ -25,6 +25,7 @@ public struct PublicKey {
         case invalidTweak
         case invalidIndex
         case failedToCreateContext
+        case derivationFailed
         
         public var errorDescription: String? {
             switch self {
@@ -38,6 +39,8 @@ public struct PublicKey {
                 return "Not a valid index"
             case .failedToCreateContext:
                 return "Failed to create a new context"
+            case .derivationFailed:
+                return "Derivation Failed"
             }
         }
     }
@@ -126,7 +129,7 @@ public struct PublicKey {
         return Base58.encode(extendedPublicKeyData + checksum)
     }
     
-    public func derived(at index: UInt32) throws -> PublicKey {
+    private func derived(at index: UInt32) throws -> PublicKey {
         let edge: UInt32 = 0x80000000
         guard (edge & index) == 0 else { throw Errors.invalidIndex }
         
@@ -163,7 +166,15 @@ public struct PublicKey {
             return Void()
         }
         
-        return try PublicKey(raw: publicKey, chainCode: derivedChainCode, network: self.network, depth: self.depth + 1, fingerprint: self.fingerprint, index: index).derived(at: 0)
+        return PublicKey(raw: publicKey, chainCode: derivedChainCode, network: self.network, depth: self.depth + 1, fingerprint: self.fingerprint, index: index)
+    }
+    
+    public func derived(index: UInt32) throws -> PublicKey {
+        guard let derived = try? self.derived(at: 0).derived(at: index) else {
+            throw Errors.derivationFailed
+        }
+        
+        return derived
     }
 }
 
