@@ -163,7 +163,7 @@ public struct PublicKey {
             return Void()
         }
         
-        return PublicKey(raw: publicKey, chainCode: derivedChainCode, network: self.network, depth: self.depth + 1, fingerprint: self.fingerprint, index: self.index)
+        return PublicKey(raw: publicKey, chainCode: derivedChainCode, network: self.network, depth: self.depth + 1, fingerprint: self.fingerprint, index: index)
     }
 }
 
