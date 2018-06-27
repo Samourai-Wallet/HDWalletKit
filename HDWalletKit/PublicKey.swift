@@ -62,13 +62,13 @@ public struct PublicKey {
         self.privateKey = nil
     }
     
-    public init(xpub: String, network: Network, index: UInt32) throws {
+    public init(xpub: String, network: Network) throws {
         guard let decoded = xpub.base58CheckDecodedData else { throw Errors.base58DecodingFailed }
         self.fingerprint = UInt32(Data(bytes: decoded.bytes[5...8]).uint8)
         self.raw = Data(bytes: decoded.bytes[45...77])
         self.depth = decoded.bytes[4]
         self.chainCode = Data(bytes: decoded.bytes[13...44])
-        self.index = index
+        self.index = 0
         self.network = network
         self.privateKey = nil
     }
@@ -163,7 +163,7 @@ public struct PublicKey {
             return Void()
         }
         
-        return PublicKey(raw: publicKey, chainCode: derivedChainCode, network: self.network, depth: self.depth + 1, fingerprint: self.fingerprint, index: index)
+        return try PublicKey(raw: publicKey, chainCode: derivedChainCode, network: self.network, depth: self.depth + 1, fingerprint: self.fingerprint, index: index).derived(at: 0)
     }
 }
 
