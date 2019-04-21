@@ -22,7 +22,7 @@ let seed = Mnemonic.createSeed(mnemonic: mnemonic)
 print(seed.toHexString())
 ```
 
-- PrivateKey and key derivation (BIP32, BIP44)
+- PrivateKey and key derivation (BIP32, BIP44).
 
 ```swift
 let masterPrivateKey = PrivateKey(seed: seed, network: .main)
@@ -45,7 +45,7 @@ print(firstPrivateKey.publicKey.address)
 ```
 
 
-- Create your wallet and generate address
+- Create your wallet and generate addresses.
 
 ```swift
 // It generates master key pair from the seed provided.
