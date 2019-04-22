@@ -1,10 +1,10 @@
 # WalletKit
-WalletKit is a Swift framwork that enables you to create and use bitcoin HD wallet([Hierarchical Deterministic Wallets](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki)) in your own app.
+WalletKit is a Swift framework that enables you to create and use HD wallets ([Hierarchical Deterministic Wallets](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki)) in your own app.
 
 You can check if the address generation is working right [here](https://iancoleman.io/bip39/).
 
 ## Features
-- Mnemonic recovery phrease in [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
+- Mnemonic recovery phrase in [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
 - [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki)/[BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) HD wallet
 - [BIP13](https://github.com/bitcoin/bips/blob/master/bip-0013.mediawiki) address format
 
@@ -22,7 +22,7 @@ let seed = Mnemonic.createSeed(mnemonic: mnemonic)
 print(seed.toHexString())
 ```
 
-- PrivateKey and key derivation (BIP32, BIP44)
+- PrivateKey and key derivation (BIP32, BIP44).
 
 ```swift
 let masterPrivateKey = PrivateKey(seed: seed, network: .main)
@@ -45,7 +45,7 @@ print(firstPrivateKey.publicKey.address)
 ```
 
 
-- Create your wallet and generate addresse
+- Create your wallet and generate addresses.
 
 ```swift
 // It generates master key pair from the seed provided.
